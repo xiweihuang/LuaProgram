@@ -28,11 +28,13 @@ function Link_List:isEmpty()
 	return self.tail <= self.head
 end
 
+local beginTime = os.clock()
+
 local list = Link_List:new()
 
 -- 输入字符串
 -- local str = "ab[1:vvv]cd"
-local str = "[1:vvv][2:vvv]abcd[3:vvv]ef"
+local str = "[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef[1:vvv][2:vvv]abcd[3:vvv]ef"
 
 local arr = {}
 for i=1,#str do
@@ -45,10 +47,13 @@ for i=1,#arr+1 do
 	if ch == "[" or ch == "]" or i > #arr then
 		-- 出队列
 		local tempStr = ""
+		local tempArr = {}
 		while not list:isEmpty() do
-			tempStr = tempStr .. list:pop_front()
+			-- tempStr = tempStr .. list:pop_front()
+			tempArr[#tempArr+1] = list:pop_front()
 		end
-		if #tempStr > 0 then
+		if #tempArr > 0 then
+			tempStr = table.concat(tempArr)
 			strArr[#strArr+1] = tempStr
 		end
 	else
@@ -56,7 +61,11 @@ for i=1,#arr+1 do
 	end
 end
 
-for i=1,#strArr do
-	print(strArr[i])
-end
+local endTime = os.clock()
+
+print("need time = ", (endTime-beginTime)*1000)
+
+-- for i=1,#strArr do
+-- 	print(strArr[i])
+-- end
 
