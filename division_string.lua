@@ -28,6 +28,11 @@ function Link_List:isEmpty()
 	return self.tail <= self.head
 end
 
+function Link_List:clear()
+	self.data = nil
+	self = nil
+end
+
 local beginTime = os.clock()
 
 local list = Link_List:new()
@@ -60,6 +65,7 @@ for i=1,#arr+1 do
 		list:push_back(ch)
 	end
 end
+list:clear()
 
 local endTime = os.clock()
 
